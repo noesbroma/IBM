@@ -2,6 +2,7 @@ package com.example.ibm
 
 import android.app.Application
 import com.example.ibm.data.main.Transaction
+import com.example.ibm.di.detailModule
 import com.example.ibm.di.mainModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
@@ -19,7 +20,8 @@ class IBMApplication: Application() {
             androidContext(this@IBMApplication)
             modules(
                 listOf(
-                    mainModule
+                        mainModule,
+                        detailModule
                 )
             )
         }
