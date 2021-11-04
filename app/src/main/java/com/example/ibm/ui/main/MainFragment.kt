@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.ibm.MainActivity
 import com.example.ibm.R
 import com.example.ibm.data.main.Transaction
-import com.example.ibm.data.main.TransactionsRecyclerAdapter
+import com.example.ibm.data.main.ProductsRecyclerAdapter
 import com.example.ibm.ui.detail.DetailFragment
 import kotlinx.android.synthetic.main.main_fragment.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -25,7 +25,7 @@ class MainFragment : Fragment() {
     }
 
     private val viewModel: MainViewModel by viewModel()
-    private lateinit var linearLayoutManager: GridLayoutManager
+    private lateinit var gridLayoutManager: GridLayoutManager
     private var productsList: ArrayList<Transaction> = ArrayList<Transaction>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -48,15 +48,15 @@ class MainFragment : Fragment() {
         viewModel.onLoadSKUEvent.observe(
                 viewLifecycleOwner,
                 androidx.lifecycle.Observer { products ->
-                    linearLayoutManager = GridLayoutManager(context, 3)
-                    transactionsRecycler.layoutManager = linearLayoutManager
-                    transactionsRecycler.hasFixedSize()
+                    gridLayoutManager = GridLayoutManager(context, 3)
+                    productsRecycler.layoutManager = gridLayoutManager
+                    productsRecycler.hasFixedSize()
 
                     productsList = products
 
-                    val mAdapter = context?.let { TransactionsRecyclerAdapter(productsList) }
+                    val mAdapter = context?.let { ProductsRecyclerAdapter(productsList) }
 
-                    mAdapter?.setOnItemClickListener(object : TransactionsRecyclerAdapter.ClickListener {
+                    mAdapter?.setOnItemClickListener(object : ProductsRecyclerAdapter.ClickListener {
                         override fun onItemClick(v: View, position: Int) {
                             (activity as MainActivity).openFragment(
                                     DetailFragment.newInstance(
@@ -68,8 +68,8 @@ class MainFragment : Fragment() {
                     })
 
                     if (productsList.size > 0) {
-                        transactionsRecycler.adapter?.notifyDataSetChanged()
-                        transactionsRecycler.adapter = mAdapter
+                        productsRecycler.adapter?.notifyDataSetChanged()
+                        productsRecycler.adapter = mAdapter
                     } else {
                         //noResults.visibility = View.VISIBLE
                     }

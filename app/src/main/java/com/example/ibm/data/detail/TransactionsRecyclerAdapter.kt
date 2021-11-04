@@ -1,11 +1,16 @@
-package com.example.ibm.data.main
+package com.example.ibm.data.detail
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.ibm.IBMApplication
 import com.example.ibm.R
+import com.example.ibm.Rate
+import com.example.ibm.data.main.Transaction
+import kotlinx.android.synthetic.main.detail_fragment.view.*
 import kotlinx.android.synthetic.main.transaction_item_row.view.*
+import java.math.BigDecimal
 import java.util.*
 
 
@@ -35,9 +40,9 @@ class TransactionsRecyclerAdapter(
     }
 
 
-    fun setOnItemClickListener(clickListener: ClickListener) {
+   /* fun setOnItemClickListener(clickListener: ClickListener) {
         this.clickListener = clickListener
-    }
+    }*/
 
 
     override fun onBindViewHolder(holder: TransactionHolder, position: Int) {
@@ -56,6 +61,9 @@ class TransactionsRecyclerAdapter(
 
         fun bindItems(transaction: Transaction) {
             itemView.sku.text = transaction.sku
+            itemView.amount.text = transaction.amount
+            itemView.currency.text = transaction.currency
+            itemView.euros.text = transaction.euroCurrency.toString() + " EUR"
         }
 
 
@@ -66,7 +74,8 @@ class TransactionsRecyclerAdapter(
         }
     }
 
-    interface ClickListener {
+
+   interface ClickListener {
         fun onItemClick(v: View,position: Int)
     }
 }

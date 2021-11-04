@@ -6,9 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.ibm.IBMApplication
+import com.example.ibm.MainActivity
 import com.example.ibm.R
+import com.example.ibm.data.detail.TransactionsRecyclerAdapter
+import com.example.ibm.data.main.ProductsRecyclerAdapter
 import com.example.ibm.data.main.Transaction
-import com.example.ibm.data.main.TransactionsRecyclerAdapter
 import kotlinx.android.synthetic.main.detail_fragment.*
 import kotlinx.android.synthetic.main.main_fragment.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -28,6 +32,8 @@ class DetailFragment : Fragment() {
     }
 
     private val viewModel: DetailViewModel by viewModel()
+    private lateinit var linearLayoutManager: LinearLayoutManager
+    private var transactionsList: ArrayList<Transaction> = ArrayList<Transaction>()
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -41,11 +47,37 @@ class DetailFragment : Fragment() {
 
         arguments?.let { viewModel.fetchIntentData(it) }
 
+        viewModel.getTransactions()
+
         setUI()
+        observeViewModel()
     }
 
 
     private fun setUI() {
-        productName.text = viewModel.transaction.sku
+        productName.text = String.format("%s: %s", resources.getString(R.string.product), viewModel.transaction.sku)
+    }
+
+    private fun observeViewModel() {
+        viewModel.onGetTransactionsByProductEvent.observe(
+                viewLifecycleOwner,
+                androidx.lifecycle.Observer { transactions ->
+                    linearLayoutManager = LinearLayoutManager(context)
+                    transactionsRecycler.layoutManager = linearLayoutManager
+                    transactionsRecycler.hasFixedSize()
+
+                    transactionsList = transactions
+
+                    val mAdapter = context?.let { TransactionsRecyclerAdapter(transactionsList) }
+
+                    if (transactionsList.size > 0) {
+                        transactionsRecycler.adapter?.notifyDataSetChanged()
+                        transactionsRecycler.adapter = mAdapter
+                    } else {
+                        //noResults.visibility = View.VISIBLE
+                    }
+
+                    totalAmount.text = String.format("%s: %s EUR", resources.getString(R.string.total), viewModel.totalAmount.toString())
+                })
     }
 }
