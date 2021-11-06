@@ -5,12 +5,19 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.ibm.IBMApplication
 import com.example.ibm.data.main.Transaction
+import java.math.RoundingMode
+import java.text.DecimalFormat
+import java.text.NumberFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 class DetailViewModel() : ViewModel() {
     lateinit var transaction: Transaction
     val onGetTransactionsByProductEvent = MutableLiveData<ArrayList<Transaction>>()
     lateinit var lista: ArrayList<Transaction>
     var totalAmount: Double = 0.0
+    var roundedTotalAmount: String = ""
+    private val numberFormatter = NumberFormat.getNumberInstance(Locale("es", "ES"))
 
     fun fetchIntentData(arguments: Bundle) {
         transaction = arguments?.getSerializable("EXTRA_TRANSACTION") as Transaction
@@ -53,6 +60,17 @@ class DetailViewModel() : ViewModel() {
             lista[lista.indexOf(transaction)].euroCurrency = euroAmount
         }
 
+        roundedTotalAmount = formatPrice(totalAmount)
+
         onGetTransactionsByProductEvent.value = lista
+    }
+
+
+    fun formatPrice(price: Double): String {
+        val df = DecimalFormat("#.##")
+        df.roundingMode = RoundingMode.HALF_EVEN
+        roundedTotalAmount = df.format(price)
+
+        return numberFormatter.format(df.format(price).replace(",", ".").toDouble())
     }
 }

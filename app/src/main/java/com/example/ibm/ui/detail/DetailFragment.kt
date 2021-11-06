@@ -77,7 +77,7 @@ class DetailFragment : Fragment() {
                         //noResults.visibility = View.VISIBLE
                     }
 
-                    totalAmount.text = String.format("%s: %s EUR", resources.getString(R.string.total), viewModel.totalAmount.toString())
+                    totalAmount.text = String.format("%s: %s EUR", resources.getString(R.string.total), viewModel.roundedTotalAmount)
                 })
     }
 }
