@@ -8,6 +8,7 @@
     android:layout_marginBottom="10dp"
     android:layout_marginLeft="10dp"
     android:layout_marginRight="10dp"
+    android:layout_marginTop="5dp"
     android:paddingRight="10dp"
     app:cardCornerRadius="4dp" >
 
@@ -24,7 +25,9 @@
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginTop="10dp"
             android:layout_marginLeft="10dp"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:textColor="@color/textPrimary"
+            android:visibility="gone"/>
 
         <LinearLayout
             android:id="@+id/amountInfo"
@@ -33,6 +36,7 @@
             app:layout_constraintTop_toBottomOf="@+id/sku"
             app:layout_constraintStart_toStartOf="parent"
             android:paddingBottom="10dp"
+            android:layout_marginTop="10dp"
             android:orientation="horizontal">
 
             <TextView
@@ -41,7 +45,8 @@
                 android:layout_height="wrap_content"
                 android:textSize="14sp"
                 android:layout_gravity="center_vertical"
-                android:layout_marginLeft="10dp" />
+                android:layout_marginLeft="10dp"
+                android:textColor="@color/textPrimary" />
 
             <TextView
                 android:id="@+id/currency"
@@ -49,24 +54,26 @@
                 android:layout_height="wrap_content"
                 android:textSize="14sp"
                 android:layout_marginLeft="5dp"
-                android:layout_gravity="center_vertical" />
+                android:layout_gravity="center_vertical"
+                android:textColor="@color/textPrimary"  />
 
             <ImageView
                 android:id="@+id/arrow"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_gravity="center_vertical"
                 android:src="@drawable/ico_arrow_right"
-                app:tint="@color/purple_700"/>
+                app:tint="@color/primary"/>
 
             <TextView
                 android:id="@+id/euros"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="14sp"
-                android:layout_gravity="center_vertical" />
+                android:layout_gravity="center_vertical"
+                android:textColor="@color/textPrimary" />
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

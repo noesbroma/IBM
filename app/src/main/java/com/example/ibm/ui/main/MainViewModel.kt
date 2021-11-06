@@ -12,11 +12,15 @@ import kotlinx.coroutines.launch
 
 class MainViewModel(private val repository: QuietStoneRepository) : ViewModel() {
     val onLoadSKUEvent = MutableLiveData<ArrayList<Transaction>>()
+    val onHideShimmerEvent = MutableLiveData<Boolean>()
+    val onShowProductsEvent = MutableLiveData<Boolean>()
 
     fun getTransactions() {
         viewModelScope.launch {
             when (val result = repository.getList()) {
                 is GetTransactionsListResult.Ok -> {
+                    onHideShimmerEvent.value = true
+                    onShowProductsEvent.value = true
                     onLoadSKUEvent.value = result.getTransactionsListResponse.distinctBy { it.sku } as ArrayList<Transaction>
                     IBMApplication.transactions = result.getTransactionsListResponse
                 }

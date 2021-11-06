@@ -59,7 +59,7 @@ class DetailFragment : Fragment() {
     }
 
     private fun observeViewModel() {
-        viewModel.onGetTransactionsByProductEvent.observe(
+       viewModel.onGetTransactionsByProductEvent.observe(
                 viewLifecycleOwner,
                 androidx.lifecycle.Observer { transactions ->
                     linearLayoutManager = LinearLayoutManager(context)

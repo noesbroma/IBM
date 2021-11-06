@@ -6,11 +6,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.ibm.MainActivity
 import com.example.ibm.R
+import com.example.ibm.data.detail.TransactionsRecyclerAdapter
 import com.example.ibm.data.main.Transaction
 import com.example.ibm.data.main.ProductsRecyclerAdapter
 import com.example.ibm.ui.detail.DetailFragment
+import kotlinx.android.synthetic.main.detail_fragment.*
 import kotlinx.android.synthetic.main.main_fragment.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -38,13 +41,33 @@ class MainFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel.getRates()
-        viewModel.getTransactions()
 
         observeViewModel()
     }
 
 
+    override fun onResume() {
+        super.onResume()
+
+        viewModel.getTransactions()
+    }
+
+
     private fun observeViewModel() {
+        viewModel.onHideShimmerEvent.observe(
+            viewLifecycleOwner,
+            androidx.lifecycle.Observer {
+               productsRecycler.visibility = View.VISIBLE
+            })
+
+        viewModel.onShowProductsEvent.observe(
+            viewLifecycleOwner,
+            androidx.lifecycle.Observer {
+                shimmerLayout.stopShimmer()
+                shimmerLayout.visibility = View.GONE
+            })
+
+
         viewModel.onLoadSKUEvent.observe(
                 viewLifecycleOwner,
                 androidx.lifecycle.Observer { products ->

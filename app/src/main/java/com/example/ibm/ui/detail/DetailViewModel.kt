@@ -14,6 +14,7 @@ import kotlin.collections.ArrayList
 class DetailViewModel() : ViewModel() {
     lateinit var transaction: Transaction
     val onGetTransactionsByProductEvent = MutableLiveData<ArrayList<Transaction>>()
+
     lateinit var transactionsList: ArrayList<Transaction>
     var totalAmount: Double = 0.0
     var roundedTotalAmount: String = ""
