@@ -33,13 +33,11 @@ class DetailViewModel() : ViewModel() {
         for (transaction in lista) {
             if (transaction.currency == "EUR") {
                 euroAmount = transaction.amount.toDouble()
-                totalAmount += euroAmount
             } else {
                 var rateItem = IBMApplication.rateList.filter { it.from == transaction.currency && it.to == "EUR" }
 
                 if (rateItem.isNotEmpty()) {
-                    euroAmount = rateItem[0].rate.toDouble()
-                    totalAmount += transaction.amount.toDouble() * euroAmount
+                    euroAmount = transaction.amount.toDouble() * rateItem[0].rate.toDouble()
                 } else {
                     var rates = IBMApplication.rateList.filter { it.from == transaction.currency}
 
@@ -48,8 +46,7 @@ class DetailViewModel() : ViewModel() {
                             var r = IBMApplication.rateList.filter { it.from == rate.to && it.to == "EUR" }
 
                             if (r.isNotEmpty()) {
-                                euroAmount = r[0].rate.toDouble()
-                                totalAmount += transaction.amount.toDouble() * euroAmount
+                                euroAmount = transaction.amount.toDouble() * r[0].rate.toDouble()
                                 break
                             }
                         }
@@ -57,6 +54,7 @@ class DetailViewModel() : ViewModel() {
                 }
             }
 
+            totalAmount += euroAmount
             lista[lista.indexOf(transaction)].euroCurrency = euroAmount
         }
 
