@@ -14,7 +14,7 @@ import kotlin.collections.ArrayList
 class DetailViewModel() : ViewModel() {
     lateinit var transaction: Transaction
     val onGetTransactionsByProductEvent = MutableLiveData<ArrayList<Transaction>>()
-    lateinit var lista: ArrayList<Transaction>
+    lateinit var transactionsList: ArrayList<Transaction>
     var totalAmount: Double = 0.0
     var roundedTotalAmount: String = ""
     private val numberFormatter = NumberFormat.getNumberInstance(Locale("es", "ES"))
@@ -27,10 +27,10 @@ class DetailViewModel() : ViewModel() {
     fun getTransactions() {
         var euroAmount = 0.0
 
-        lista = IBMApplication.transactions.clone() as ArrayList<Transaction>
-        lista = lista.filter { it.sku == transaction.sku } as ArrayList<Transaction>
+        transactionsList = IBMApplication.transactions.clone() as ArrayList<Transaction>
+        transactionsList = transactionsList.filter { it.sku == transaction.sku } as ArrayList<Transaction>
 
-        for (transaction in lista) {
+        for (transaction in transactionsList) {
             if (transaction.currency == "EUR") {
                 euroAmount = transaction.amount.toDouble()
             } else {
@@ -55,12 +55,12 @@ class DetailViewModel() : ViewModel() {
             }
 
             totalAmount += euroAmount
-            lista[lista.indexOf(transaction)].euroCurrency = euroAmount
+            transactionsList[transactionsList.indexOf(transaction)].euroCurrency = formatPrice(euroAmount)
         }
 
         roundedTotalAmount = formatPrice(totalAmount)
 
-        onGetTransactionsByProductEvent.value = lista
+        onGetTransactionsByProductEvent.value = transactionsList
     }
 
 
