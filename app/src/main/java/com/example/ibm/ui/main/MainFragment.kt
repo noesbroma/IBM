@@ -1,21 +1,20 @@
 package com.example.ibm.ui.main
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.ibm.MainActivity
 import com.example.ibm.R
-import com.example.ibm.data.detail.TransactionsRecyclerAdapter
-import com.example.ibm.data.main.Transaction
 import com.example.ibm.data.main.ProductsRecyclerAdapter
+import com.example.ibm.data.main.Transaction
 import com.example.ibm.ui.detail.DetailFragment
-import kotlinx.android.synthetic.main.detail_fragment.*
 import kotlinx.android.synthetic.main.main_fragment.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
+
 
 class MainFragment : Fragment() {
 
@@ -31,8 +30,10 @@ class MainFragment : Fragment() {
     private lateinit var gridLayoutManager: GridLayoutManager
     private var productsList: ArrayList<Transaction> = ArrayList<Transaction>()
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         return inflater.inflate(R.layout.main_fragment, container, false)
     }
 
@@ -40,7 +41,10 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        (activity as AppCompatActivity?)!!.supportActionBar!!.setDisplayHomeAsUpEnabled(false)
+
         viewModel.getRates()
+        viewModel.getTransactions()
 
         observeViewModel()
     }
@@ -49,7 +53,7 @@ class MainFragment : Fragment() {
     override fun onResume() {
         super.onResume()
 
-        viewModel.getTransactions()
+        //viewModel.getTransactions()
     }
 
 
@@ -57,45 +61,48 @@ class MainFragment : Fragment() {
         viewModel.onHideShimmerEvent.observe(
             viewLifecycleOwner,
             androidx.lifecycle.Observer {
-               productsRecycler.visibility = View.VISIBLE
-            })
+                productsRecycler.visibility = View.VISIBLE
+            }
+        )
 
         viewModel.onShowProductsEvent.observe(
             viewLifecycleOwner,
             androidx.lifecycle.Observer {
                 shimmerLayout.stopShimmer()
                 shimmerLayout.visibility = View.GONE
-            })
-
+            }
+        )
 
         viewModel.onLoadSKUEvent.observe(
-                viewLifecycleOwner,
-                androidx.lifecycle.Observer { products ->
-                    gridLayoutManager = GridLayoutManager(context, 3)
-                    productsRecycler.layoutManager = gridLayoutManager
-                    productsRecycler.hasFixedSize()
+            viewLifecycleOwner,
+            androidx.lifecycle.Observer { products ->
+                gridLayoutManager = GridLayoutManager(context, 3)
+                productsRecycler.layoutManager = gridLayoutManager
+                productsRecycler.hasFixedSize()
 
-                    productsList = products
+                productsList = products
 
-                    val mAdapter = context?.let { ProductsRecyclerAdapter(productsList) }
+                val mAdapter = context?.let { ProductsRecyclerAdapter(productsList) }
 
-                    mAdapter?.setOnItemClickListener(object : ProductsRecyclerAdapter.ClickListener {
-                        override fun onItemClick(v: View, position: Int) {
-                            (activity as MainActivity).openFragment(
-                                    DetailFragment.newInstance(
-                                            products[position]
-                                    )
+                mAdapter?.setOnItemClickListener(object :
+                    ProductsRecyclerAdapter.ClickListener {
+                    override fun onItemClick(v: View, position: Int) {
+                        (activity as MainActivity).openFragment(
+                            DetailFragment.newInstance(
+                                products[position]
                             )
-                        }
-
-                    })
-
-                    if (productsList.size > 0) {
-                        productsRecycler.adapter?.notifyDataSetChanged()
-                        productsRecycler.adapter = mAdapter
-                    } else {
-                        //noResults.visibility = View.VISIBLE
+                        )
                     }
+
                 })
+
+                if (productsList.size > 0) {
+                    productsRecycler.adapter?.notifyDataSetChanged()
+                    productsRecycler.adapter = mAdapter
+                } else {
+                    //noResults.visibility = View.VISIBLE
+                }
+            }
+        )
     }
 }

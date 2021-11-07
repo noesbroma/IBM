@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.ibm.IBMApplication
@@ -48,6 +49,7 @@ class DetailFragment : Fragment() {
         arguments?.let { viewModel.fetchIntentData(it) }
 
         viewModel.getTransactions()
+        (activity as AppCompatActivity?)!!.supportActionBar!!.setDisplayHomeAsUpEnabled(true)
 
         setUI()
         observeViewModel()
@@ -56,6 +58,8 @@ class DetailFragment : Fragment() {
 
     private fun setUI() {
         productName.text = String.format("%s: %s", resources.getString(R.string.product), viewModel.transaction.sku)
+
+
     }
 
     private fun observeViewModel() {
