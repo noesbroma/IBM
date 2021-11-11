@@ -9,18 +9,21 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.ibm.R
 import com.example.ibm.data.detail.TransactionsRecyclerAdapter
-import com.example.ibm.data.main.Transaction
+import com.example.ibm.domain.Rate
+import com.example.ibm.domain.Transaction
 import kotlinx.android.synthetic.main.detail_fragment.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class DetailFragment : Fragment() {
 
     companion object {
-        fun newInstance(transaction: Transaction): DetailFragment {
+        fun newInstance(transaction: Transaction, transactionsList: ArrayList<Transaction>, ratesList: ArrayList<Rate>): DetailFragment {
             val fragment = DetailFragment()
 
             val args = Bundle()
             args.putSerializable("EXTRA_TRANSACTION", transaction)
+            args.putSerializable("EXTRA_TRANSACTIONS_LIST", transactionsList)
+            args.putSerializable("EXTRA_RATES_LIST", ratesList)
             fragment.arguments = args
 
             return fragment

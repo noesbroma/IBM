@@ -1,6 +1,6 @@
 package com.example.ibm.data.main
 
-import com.example.ibm.Rate
+import com.example.ibm.domain.Rate
 import com.google.gson.annotations.SerializedName
 
 

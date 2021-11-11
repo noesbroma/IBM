@@ -1,4 +1,4 @@
-package com.example.ibm
+package com.example.ibm.domain
 
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable

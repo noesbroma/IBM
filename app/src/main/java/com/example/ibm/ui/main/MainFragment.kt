@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.ibm.ui.MainActivity
 import com.example.ibm.R
 import com.example.ibm.data.main.ProductsRecyclerAdapter
-import com.example.ibm.data.main.Transaction
+import com.example.ibm.domain.Transaction
 import com.example.ibm.ui.detail.DetailFragment
 import kotlinx.android.synthetic.main.main_fragment.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -28,7 +28,8 @@ class MainFragment : Fragment() {
 
     private val viewModel: MainViewModel by viewModel()
     private lateinit var gridLayoutManager: GridLayoutManager
-    private var productsList: ArrayList<Transaction> = ArrayList<Transaction>()
+    private var productsList: ArrayList<Transaction> = ArrayList()
+    //private var transactionsList: ArrayList<Transaction> = ArrayList()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -52,8 +53,6 @@ class MainFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-
-        //viewModel.getTransactions()
     }
 
 
@@ -89,7 +88,7 @@ class MainFragment : Fragment() {
                     override fun onItemClick(v: View, position: Int) {
                         (activity as MainActivity).openFragment(
                             DetailFragment.newInstance(
-                                products[position]
+                                products[position], viewModel.transactions, viewModel.rates
                             )
                         )
                     }

@@ -1,9 +1,10 @@
 package com.example.ibm
 
 import android.app.Application
-import com.example.ibm.data.main.Transaction
+import com.example.ibm.domain.Transaction
 import com.example.ibm.di.detailModule
 import com.example.ibm.di.mainModule
+import com.example.ibm.domain.Rate
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 
@@ -29,8 +30,5 @@ class IBMApplication: Application() {
 
 
     companion object {
-        //TODO Pasarlo en el intent
-        var rateList = ArrayList<Rate>()
-        var transactions = ArrayList<Transaction>()
     }
 }

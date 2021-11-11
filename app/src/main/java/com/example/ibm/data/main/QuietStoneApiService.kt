@@ -1,8 +1,8 @@
 package com.example.ibm.data.main
 
-import com.example.ibm.Rate
+import com.example.ibm.domain.Rate
+import com.example.ibm.domain.Transaction
 import retrofit2.http.GET
-import retrofit2.http.Query
 
 interface QuietStoneApiService {
 

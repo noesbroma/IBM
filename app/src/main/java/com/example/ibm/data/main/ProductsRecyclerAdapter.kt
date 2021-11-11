@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ibm.R
+import com.example.ibm.domain.Transaction
 import kotlinx.android.synthetic.main.transaction_item_row.view.*
 import java.util.*
 
