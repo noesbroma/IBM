@@ -1,6 +1,6 @@
 package com.example.ibm.di
 
-import com.example.ibm.IBMRetrofitBuilder
+import com.example.ibm.data.IBMRetrofitBuilder
 import com.example.ibm.data.main.QuietStoneApiService
 import com.example.ibm.data.main.QuietStoneRepository
 import com.example.ibm.ui.main.MainViewModel

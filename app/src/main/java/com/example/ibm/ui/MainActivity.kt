@@ -1,9 +1,9 @@
-package com.example.ibm
+package com.example.ibm.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.MenuItem
 import androidx.fragment.app.Fragment
+import com.example.ibm.R
 import com.example.ibm.ui.main.MainFragment
 
 class MainActivity : AppCompatActivity() {

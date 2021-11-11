@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
-import com.example.ibm.MainActivity
+import com.example.ibm.ui.MainActivity
 import com.example.ibm.R
 import com.example.ibm.data.main.ProductsRecyclerAdapter
 import com.example.ibm.data.main.Transaction
@@ -93,7 +93,6 @@ class MainFragment : Fragment() {
                             )
                         )
                     }
-
                 })
 
                 if (productsList.size > 0) {

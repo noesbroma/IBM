@@ -1,12 +1,12 @@
-package com.example.ibm
+package com.example.ibm.data
 
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.converter.simplexml.SimpleXmlConverterFactory
 
 class IBMRetrofitBuilder {
     companion object {
         private var retrofit_api: Retrofit? = null
+        val baseSecureHost = "https://quiet-stone-2094.herokuapp.com/"
 
 
         fun getRetrofitApi(): Retrofit? {
@@ -18,7 +18,7 @@ class IBMRetrofitBuilder {
 
         private fun initRetrofitApi() {
             retrofit_api = Retrofit.Builder()
-                .baseUrl(IBMApplication.baseSecureHost)
+                .baseUrl(baseSecureHost)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
         }

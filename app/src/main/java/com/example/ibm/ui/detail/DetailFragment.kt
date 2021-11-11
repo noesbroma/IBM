@@ -6,16 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.ibm.IBMApplication
-import com.example.ibm.MainActivity
 import com.example.ibm.R
 import com.example.ibm.data.detail.TransactionsRecyclerAdapter
-import com.example.ibm.data.main.ProductsRecyclerAdapter
 import com.example.ibm.data.main.Transaction
 import kotlinx.android.synthetic.main.detail_fragment.*
-import kotlinx.android.synthetic.main.main_fragment.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class DetailFragment : Fragment() {

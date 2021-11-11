@@ -29,7 +29,7 @@ class IBMApplication: Application() {
 
 
     companion object {
-        val baseSecureHost = "https://quiet-stone-2094.herokuapp.com/"
+        //TODO Pasarlo en el intent
         var rateList = ArrayList<Rate>()
         var transactions = ArrayList<Transaction>()
     }
